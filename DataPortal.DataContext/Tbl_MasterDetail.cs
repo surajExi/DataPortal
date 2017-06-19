@@ -14,6 +14,12 @@ namespace DataPortal.DataContext
     
     public partial class Tbl_MasterDetail
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Tbl_MasterDetail()
+        {
+            this.Tbl_SuicideCount = new HashSet<Tbl_SuicideCount>();
+        }
+    
         public int masterID { get; set; }
         public int surveyYear { get; set; }
         public int stateID { get; set; }
@@ -23,5 +29,7 @@ namespace DataPortal.DataContext
         public virtual Tbl_AgeGroup Tbl_AgeGroup { get; set; }
         public virtual Tbl_Gender Tbl_Gender { get; set; }
         public virtual Tbl_State Tbl_State { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tbl_SuicideCount> Tbl_SuicideCount { get; set; }
     }
 }

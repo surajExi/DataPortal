@@ -16,5 +16,8 @@ namespace DataPortal.DataContext
     {
         public int suicideCountID { get; set; }
         public int suicideCountValue { get; set; }
+        public int masterDetailID { get; set; }
+    
+        public virtual Tbl_MasterDetail Tbl_MasterDetail { get; set; }
     }
 }

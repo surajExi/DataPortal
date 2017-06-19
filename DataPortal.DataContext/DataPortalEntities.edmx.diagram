@@ -9,10 +9,11 @@
         <EntityTypeShape EntityType="SuicideDataModel.Tbl_Gender" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
         <EntityTypeShape EntityType="SuicideDataModel.Tbl_MasterDetail" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="SuicideDataModel.Tbl_State" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="SuicideDataModel.Tbl_SuicideCount" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
         <AssociationConnector Association="SuicideDataModel.FK__Tbl_Maste__ageGr__2B3F6F97" ManuallyRouted="false" />
         <AssociationConnector Association="SuicideDataModel.FK__Tbl_Maste__gende__2C3393D0" ManuallyRouted="false" />
         <AssociationConnector Association="SuicideDataModel.FK__Tbl_Maste__state__2D27B809" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SuicideDataModel.Tbl_SuicideCount" Width="1.5" PointX="5.25" PointY="1.5" />
+        <AssociationConnector Association="SuicideDataModel.FK_SuicideCount_MasterDetail" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

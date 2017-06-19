@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SuicideDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SuicideDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Tbl_AgeGroup">
           <Key>
             <PropertyRef Name="ageGroupID" />
@@ -43,6 +43,7 @@
           </Key>
           <Property Name="suicideCountID" Type="int" Nullable="false" />
           <Property Name="suicideCountValue" Type="int" Nullable="false" />
+          <Property Name="masterDetailID" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK__Tbl_Maste__ageGr__2B3F6F97">
           <End Role="Tbl_AgeGroup" Type="Self.Tbl_AgeGroup" Multiplicity="1" />
@@ -80,6 +81,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SuicideCount_MasterDetail">
+          <End Role="Tbl_MasterDetail" Type="Self.Tbl_MasterDetail" Multiplicity="1" />
+          <End Role="Tbl_SuicideCount" Type="Self.Tbl_SuicideCount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_MasterDetail">
+              <PropertyRef Name="masterID" />
+            </Principal>
+            <Dependent Role="Tbl_SuicideCount">
+              <PropertyRef Name="masterDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="SuicideDataModelStoreContainer">
           <EntitySet Name="Tbl_AgeGroup" EntityType="Self.Tbl_AgeGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Gender" EntityType="Self.Tbl_Gender" Schema="dbo" store:Type="Tables" />
@@ -98,9 +111,12 @@
             <End Role="Tbl_State" EntitySet="Tbl_State" />
             <End Role="Tbl_MasterDetail" EntitySet="Tbl_MasterDetail" />
           </AssociationSet>
+          <AssociationSet Name="FK_SuicideCount_MasterDetail" Association="Self.FK_SuicideCount_MasterDetail">
+            <End Role="Tbl_MasterDetail" EntitySet="Tbl_MasterDetail" />
+            <End Role="Tbl_SuicideCount" EntitySet="Tbl_SuicideCount" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SuicideDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -133,6 +149,7 @@
           <NavigationProperty Name="Tbl_AgeGroup" Relationship="Self.FK__Tbl_Maste__ageGr__2B3F6F97" FromRole="Tbl_MasterDetail" ToRole="Tbl_AgeGroup" />
           <NavigationProperty Name="Tbl_Gender" Relationship="Self.FK__Tbl_Maste__gende__2C3393D0" FromRole="Tbl_MasterDetail" ToRole="Tbl_Gender" />
           <NavigationProperty Name="Tbl_State" Relationship="Self.FK__Tbl_Maste__state__2D27B809" FromRole="Tbl_MasterDetail" ToRole="Tbl_State" />
+          <NavigationProperty Name="Tbl_SuicideCount" Relationship="SuicideDataModel.FK_SuicideCount_MasterDetail" FromRole="Tbl_MasterDetail" ToRole="Tbl_SuicideCount" />
         </EntityType>
         <EntityType Name="Tbl_State">
           <Key>
@@ -141,13 +158,6 @@
           <Property Name="stateID" Type="Int32" Nullable="false" />
           <Property Name="stateName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Tbl_MasterDetail" Relationship="Self.FK__Tbl_Maste__state__2D27B809" FromRole="Tbl_State" ToRole="Tbl_MasterDetail" />
-        </EntityType>
-        <EntityType Name="Tbl_SuicideCount">
-          <Key>
-            <PropertyRef Name="suicideCountID" />
-          </Key>
-          <Property Name="suicideCountID" Type="Int32" Nullable="false" />
-          <Property Name="suicideCountValue" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK__Tbl_Maste__ageGr__2B3F6F97">
           <End Role="Tbl_AgeGroup" Type="Self.Tbl_AgeGroup" Multiplicity="1" />
@@ -190,7 +200,6 @@
           <EntitySet Name="Tbl_Gender" EntityType="Self.Tbl_Gender" />
           <EntitySet Name="Tbl_MasterDetail" EntityType="Self.Tbl_MasterDetail" />
           <EntitySet Name="Tbl_State" EntityType="Self.Tbl_State" />
-          <EntitySet Name="Tbl_SuicideCount" EntityType="Self.Tbl_SuicideCount" />
           <AssociationSet Name="FK__Tbl_Maste__ageGr__2B3F6F97" Association="Self.FK__Tbl_Maste__ageGr__2B3F6F97">
             <End Role="Tbl_AgeGroup" EntitySet="Tbl_AgeGroup" />
             <End Role="Tbl_MasterDetail" EntitySet="Tbl_MasterDetail" />
@@ -203,7 +212,33 @@
             <End Role="Tbl_State" EntitySet="Tbl_State" />
             <End Role="Tbl_MasterDetail" EntitySet="Tbl_MasterDetail" />
           </AssociationSet>
+          <EntitySet Name="Tbl_SuicideCount" EntityType="SuicideDataModel.Tbl_SuicideCount" />
+          <AssociationSet Name="FK_SuicideCount_MasterDetail" Association="SuicideDataModel.FK_SuicideCount_MasterDetail">
+            <End Role="Tbl_MasterDetail" EntitySet="Tbl_MasterDetail" />
+            <End Role="Tbl_SuicideCount" EntitySet="Tbl_SuicideCount" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Tbl_SuicideCount">
+          <Key>
+            <PropertyRef Name="suicideCountID" />
+          </Key>
+          <Property Name="suicideCountID" Type="Int32" Nullable="false" />
+          <Property Name="suicideCountValue" Type="Int32" Nullable="false" />
+          <Property Name="masterDetailID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tbl_MasterDetail" Relationship="SuicideDataModel.FK_SuicideCount_MasterDetail" FromRole="Tbl_SuicideCount" ToRole="Tbl_MasterDetail" />
+        </EntityType>
+        <Association Name="FK_SuicideCount_MasterDetail">
+          <End Type="SuicideDataModel.Tbl_MasterDetail" Role="Tbl_MasterDetail" Multiplicity="1" />
+          <End Type="SuicideDataModel.Tbl_SuicideCount" Role="Tbl_SuicideCount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_MasterDetail">
+              <PropertyRef Name="masterID" />
+            </Principal>
+            <Dependent Role="Tbl_SuicideCount">
+              <PropertyRef Name="masterDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -249,8 +284,9 @@
           <EntitySetMapping Name="Tbl_SuicideCount">
             <EntityTypeMapping TypeName="SuicideDataModel.Tbl_SuicideCount">
               <MappingFragment StoreEntitySet="Tbl_SuicideCount">
-                <ScalarProperty Name="suicideCountID" ColumnName="suicideCountID" />
+                <ScalarProperty Name="masterDetailID" ColumnName="masterDetailID" />
                 <ScalarProperty Name="suicideCountValue" ColumnName="suicideCountValue" />
+                <ScalarProperty Name="suicideCountID" ColumnName="suicideCountID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
