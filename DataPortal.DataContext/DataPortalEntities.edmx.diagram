@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8c052e60aa5840a1892f243231f1a227" Name="Diagram1">
+        <EntityTypeShape EntityType="SuicideDataModel.Tbl_AgeGroup" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuicideDataModel.Tbl_Gender" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuicideDataModel.Tbl_MasterDetail" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuicideDataModel.Tbl_State" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuicideDataModel.Tbl_SuicideCount" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="SuicideDataModel.FK__Tbl_Maste__ageGr__2B3F6F97" ManuallyRouted="false" />
+        <AssociationConnector Association="SuicideDataModel.FK__Tbl_Maste__gende__2C3393D0" ManuallyRouted="false" />
+        <AssociationConnector Association="SuicideDataModel.FK__Tbl_Maste__state__2D27B809" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

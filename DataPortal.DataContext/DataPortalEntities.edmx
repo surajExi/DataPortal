@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SuicideDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Tbl_AgeGroup">
+          <Key>
+            <PropertyRef Name="ageGroupID" />
+          </Key>
+          <Property Name="ageGroupID" Type="int" Nullable="false" />
+          <Property Name="ageGroupStart" Type="int" Nullable="false" />
+          <Property Name="ageGroupEnd" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Gender">
+          <Key>
+            <PropertyRef Name="genderID" />
+          </Key>
+          <Property Name="genderID" Type="int" Nullable="false" />
+          <Property Name="genderType" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_MasterDetail">
+          <Key>
+            <PropertyRef Name="masterID" />
+          </Key>
+          <Property Name="masterID" Type="int" Nullable="false" />
+          <Property Name="surveyYear" Type="int" Nullable="false" />
+          <Property Name="stateID" Type="int" Nullable="false" />
+          <Property Name="genderId" Type="int" Nullable="false" />
+          <Property Name="ageGroupID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_State">
+          <Key>
+            <PropertyRef Name="stateID" />
+          </Key>
+          <Property Name="stateID" Type="int" Nullable="false" />
+          <Property Name="stateName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_SuicideCount">
+          <Key>
+            <PropertyRef Name="suicideCountID" />
+          </Key>
+          <Property Name="suicideCountID" Type="int" Nullable="false" />
+          <Property Name="suicideCountValue" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Tbl_Maste__ageGr__2B3F6F97">
+          <End Role="Tbl_AgeGroup" Type="Self.Tbl_AgeGroup" Multiplicity="1" />
+          <End Role="Tbl_MasterDetail" Type="Self.Tbl_MasterDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_AgeGroup">
+              <PropertyRef Name="ageGroupID" />
+            </Principal>
+            <Dependent Role="Tbl_MasterDetail">
+              <PropertyRef Name="ageGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tbl_Maste__gende__2C3393D0">
+          <End Role="Tbl_Gender" Type="Self.Tbl_Gender" Multiplicity="1" />
+          <End Role="Tbl_MasterDetail" Type="Self.Tbl_MasterDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Gender">
+              <PropertyRef Name="genderID" />
+            </Principal>
+            <Dependent Role="Tbl_MasterDetail">
+              <PropertyRef Name="genderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tbl_Maste__state__2D27B809">
+          <End Role="Tbl_State" Type="Self.Tbl_State" Multiplicity="1" />
+          <End Role="Tbl_MasterDetail" Type="Self.Tbl_MasterDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_State">
+              <PropertyRef Name="stateID" />
+            </Principal>
+            <Dependent Role="Tbl_MasterDetail">
+              <PropertyRef Name="stateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SuicideDataModelStoreContainer">
+          <EntitySet Name="Tbl_AgeGroup" EntityType="Self.Tbl_AgeGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Gender" EntityType="Self.Tbl_Gender" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_MasterDetail" EntityType="Self.Tbl_MasterDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_State" EntityType="Self.Tbl_State" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_SuicideCount" EntityType="Self.Tbl_SuicideCount" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Tbl_Maste__ageGr__2B3F6F97" Association="Self.FK__Tbl_Maste__ageGr__2B3F6F97">
+            <End Role="Tbl_AgeGroup" EntitySet="Tbl_AgeGroup" />
+            <End Role="Tbl_MasterDetail" EntitySet="Tbl_MasterDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tbl_Maste__gende__2C3393D0" Association="Self.FK__Tbl_Maste__gende__2C3393D0">
+            <End Role="Tbl_Gender" EntitySet="Tbl_Gender" />
+            <End Role="Tbl_MasterDetail" EntitySet="Tbl_MasterDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tbl_Maste__state__2D27B809" Association="Self.FK__Tbl_Maste__state__2D27B809">
+            <End Role="Tbl_State" EntitySet="Tbl_State" />
+            <End Role="Tbl_MasterDetail" EntitySet="Tbl_MasterDetail" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SuicideDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Tbl_AgeGroup">
+          <Key>
+            <PropertyRef Name="ageGroupID" />
+          </Key>
+          <Property Name="ageGroupID" Type="Int32" Nullable="false" />
+          <Property Name="ageGroupStart" Type="Int32" Nullable="false" />
+          <Property Name="ageGroupEnd" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tbl_MasterDetail" Relationship="Self.FK__Tbl_Maste__ageGr__2B3F6F97" FromRole="Tbl_AgeGroup" ToRole="Tbl_MasterDetail" />
+        </EntityType>
+        <EntityType Name="Tbl_Gender">
+          <Key>
+            <PropertyRef Name="genderID" />
+          </Key>
+          <Property Name="genderID" Type="Int32" Nullable="false" />
+          <Property Name="genderType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Tbl_MasterDetail" Relationship="Self.FK__Tbl_Maste__gende__2C3393D0" FromRole="Tbl_Gender" ToRole="Tbl_MasterDetail" />
+        </EntityType>
+        <EntityType Name="Tbl_MasterDetail">
+          <Key>
+            <PropertyRef Name="masterID" />
+          </Key>
+          <Property Name="masterID" Type="Int32" Nullable="false" />
+          <Property Name="surveyYear" Type="Int32" Nullable="false" />
+          <Property Name="stateID" Type="Int32" Nullable="false" />
+          <Property Name="genderId" Type="Int32" Nullable="false" />
+          <Property Name="ageGroupID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tbl_AgeGroup" Relationship="Self.FK__Tbl_Maste__ageGr__2B3F6F97" FromRole="Tbl_MasterDetail" ToRole="Tbl_AgeGroup" />
+          <NavigationProperty Name="Tbl_Gender" Relationship="Self.FK__Tbl_Maste__gende__2C3393D0" FromRole="Tbl_MasterDetail" ToRole="Tbl_Gender" />
+          <NavigationProperty Name="Tbl_State" Relationship="Self.FK__Tbl_Maste__state__2D27B809" FromRole="Tbl_MasterDetail" ToRole="Tbl_State" />
+        </EntityType>
+        <EntityType Name="Tbl_State">
+          <Key>
+            <PropertyRef Name="stateID" />
+          </Key>
+          <Property Name="stateID" Type="Int32" Nullable="false" />
+          <Property Name="stateName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Tbl_MasterDetail" Relationship="Self.FK__Tbl_Maste__state__2D27B809" FromRole="Tbl_State" ToRole="Tbl_MasterDetail" />
+        </EntityType>
+        <EntityType Name="Tbl_SuicideCount">
+          <Key>
+            <PropertyRef Name="suicideCountID" />
+          </Key>
+          <Property Name="suicideCountID" Type="Int32" Nullable="false" />
+          <Property Name="suicideCountValue" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Tbl_Maste__ageGr__2B3F6F97">
+          <End Role="Tbl_AgeGroup" Type="Self.Tbl_AgeGroup" Multiplicity="1" />
+          <End Role="Tbl_MasterDetail" Type="Self.Tbl_MasterDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_AgeGroup">
+              <PropertyRef Name="ageGroupID" />
+            </Principal>
+            <Dependent Role="Tbl_MasterDetail">
+              <PropertyRef Name="ageGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tbl_Maste__gende__2C3393D0">
+          <End Role="Tbl_Gender" Type="Self.Tbl_Gender" Multiplicity="1" />
+          <End Role="Tbl_MasterDetail" Type="Self.Tbl_MasterDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Gender">
+              <PropertyRef Name="genderID" />
+            </Principal>
+            <Dependent Role="Tbl_MasterDetail">
+              <PropertyRef Name="genderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tbl_Maste__state__2D27B809">
+          <End Role="Tbl_State" Type="Self.Tbl_State" Multiplicity="1" />
+          <End Role="Tbl_MasterDetail" Type="Self.Tbl_MasterDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_State">
+              <PropertyRef Name="stateID" />
+            </Principal>
+            <Dependent Role="Tbl_MasterDetail">
+              <PropertyRef Name="stateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SuicideDataEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Tbl_AgeGroup" EntityType="Self.Tbl_AgeGroup" />
+          <EntitySet Name="Tbl_Gender" EntityType="Self.Tbl_Gender" />
+          <EntitySet Name="Tbl_MasterDetail" EntityType="Self.Tbl_MasterDetail" />
+          <EntitySet Name="Tbl_State" EntityType="Self.Tbl_State" />
+          <EntitySet Name="Tbl_SuicideCount" EntityType="Self.Tbl_SuicideCount" />
+          <AssociationSet Name="FK__Tbl_Maste__ageGr__2B3F6F97" Association="Self.FK__Tbl_Maste__ageGr__2B3F6F97">
+            <End Role="Tbl_AgeGroup" EntitySet="Tbl_AgeGroup" />
+            <End Role="Tbl_MasterDetail" EntitySet="Tbl_MasterDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tbl_Maste__gende__2C3393D0" Association="Self.FK__Tbl_Maste__gende__2C3393D0">
+            <End Role="Tbl_Gender" EntitySet="Tbl_Gender" />
+            <End Role="Tbl_MasterDetail" EntitySet="Tbl_MasterDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tbl_Maste__state__2D27B809" Association="Self.FK__Tbl_Maste__state__2D27B809">
+            <End Role="Tbl_State" EntitySet="Tbl_State" />
+            <End Role="Tbl_MasterDetail" EntitySet="Tbl_MasterDetail" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SuicideDataModelStoreContainer" CdmEntityContainer="SuicideDataEntities">
+          <EntitySetMapping Name="Tbl_AgeGroup">
+            <EntityTypeMapping TypeName="SuicideDataModel.Tbl_AgeGroup">
+              <MappingFragment StoreEntitySet="Tbl_AgeGroup">
+                <ScalarProperty Name="ageGroupID" ColumnName="ageGroupID" />
+                <ScalarProperty Name="ageGroupStart" ColumnName="ageGroupStart" />
+                <ScalarProperty Name="ageGroupEnd" ColumnName="ageGroupEnd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Gender">
+            <EntityTypeMapping TypeName="SuicideDataModel.Tbl_Gender">
+              <MappingFragment StoreEntitySet="Tbl_Gender">
+                <ScalarProperty Name="genderID" ColumnName="genderID" />
+                <ScalarProperty Name="genderType" ColumnName="genderType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_MasterDetail">
+            <EntityTypeMapping TypeName="SuicideDataModel.Tbl_MasterDetail">
+              <MappingFragment StoreEntitySet="Tbl_MasterDetail">
+                <ScalarProperty Name="masterID" ColumnName="masterID" />
+                <ScalarProperty Name="surveyYear" ColumnName="surveyYear" />
+                <ScalarProperty Name="stateID" ColumnName="stateID" />
+                <ScalarProperty Name="genderId" ColumnName="genderId" />
+                <ScalarProperty Name="ageGroupID" ColumnName="ageGroupID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_State">
+            <EntityTypeMapping TypeName="SuicideDataModel.Tbl_State">
+              <MappingFragment StoreEntitySet="Tbl_State">
+                <ScalarProperty Name="stateID" ColumnName="stateID" />
+                <ScalarProperty Name="stateName" ColumnName="stateName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_SuicideCount">
+            <EntityTypeMapping TypeName="SuicideDataModel.Tbl_SuicideCount">
+              <MappingFragment StoreEntitySet="Tbl_SuicideCount">
+                <ScalarProperty Name="suicideCountID" ColumnName="suicideCountID" />
+                <ScalarProperty Name="suicideCountValue" ColumnName="suicideCountValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
